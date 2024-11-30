@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎯 LaserPecker Parameters
 
-## Getting Started
+A simple tool to easily find and visualize LaserPecker LX1 laser cutting and engraving parameters.
 
-First, run the development server:
+## 📝 About
+
+This project is a personal initiative created by a hobbyist and is not affiliated with or endorsed by the LaserPecker brand.
+
+I created this tool because I found myself constantly referring to the official parameter tables, which weren't particularly user-friendly. The format provided on the official website, while comprehensive, wasn't easily readable during my projects.
+
+## ✨ Features
+
+- 🔍 Quick material search
+- 📏 Multiple thickness support
+- 🎚️ Different laser modes (10W, 2W, 20W)
+- 🖥️ Various resolutions (1K, 2K, 4K)
+- 💾 Local storage for your last used parameters
+- 📱 Responsive design for all devices
+
+## 🚀 Getting Started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Clone the repository
+git clone https://github.com/yourusername/laserpecker-params
+
+# Navigate to the project directory
+cd laserpecker-params
+
+# Install dependencies
+pnpm install
+
+# Start the development server
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Built With
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Next.js 15
+- TypeScript
+- Tailwind CSS
+- Zustand
+- shadcn/ui
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📋 Data Source
 
-## Learn More
+The parameters used in this tool are sourced from the official LaserPecker documentation. Always refer to the official documentation for the most up-to-date parameters and safety guidelines.
 
-To learn more about Next.js, take a look at the following resources:
+## ⚠️ Disclaimer
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This is an unofficial tool created for personal use. Always follow the official LaserPecker guidelines and safety instructions when using your laser engraver.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📄 License
 
-## Deploy on Vercel
+MIT License - feel free to use this tool for your own projects!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🤝 Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Feel free to contribute by:
+
+- Opening issues for bugs or suggestions
+- Submitting pull requests
+- Adding more materials and parameters
+- Improving the user interface
+
+## 🌟 Star this repo
+
+If you find this tool helpful, please consider giving it a star! It helps others discover this resource.
+
+---
+
+Made with ❤️ by a laser enthusiast
