@@ -19,6 +19,14 @@ I created this tool because I found myself constantly referring to the official 
 
 ## 🚀 Getting Started
 
+## 🚀 Development Setup
+
+This project uses [Volta](https://volta.sh) to ensure consistent Node.js and pnpm versions.
+
+```bash
+# Install Volta
+curl https://get.volta.sh | bash
+
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/laserpecker-params
