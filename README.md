@@ -2,6 +2,8 @@
 
 A simple tool to easily find and visualize LaserPecker LX1 laser cutting and engraving parameters.
 
+🔗 [Live Demo](https://laserpecker-params.vercel.app/)
+
 ## 📝 About
 
 This project is a personal initiative created by a hobbyist and is not affiliated with or endorsed by the LaserPecker brand.
