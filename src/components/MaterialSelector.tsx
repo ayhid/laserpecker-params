@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
-import { materials } from '@/data/materials.json';
+import { materials } from '@/data/materials';
 import { useState } from 'react';
 
 type MaterialSelectorProps = {
@@ -12,7 +12,7 @@ type MaterialSelectorProps = {
 const MaterialSelector = ({ selectedMaterial, onSelect }: MaterialSelectorProps) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredMaterials = Object.entries(materials).filter(([key, value]) =>
+  const filteredMaterials = Object.entries(materials).filter(([, value]) =>
     value.label.toLowerCase().includes(searchTerm.toLowerCase())
   );
 

@@ -1,16 +1,77 @@
-// src/app/page.tsx
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
+import { Button } from '@/components/ui/button';
 import MaterialSelector from '@/components/MaterialSelector';
 import ParameterDisplay from '@/components/ParameterDisplay';
 import ResolutionPicker from '@/components/ResolutionPicker';
 import { Separator } from '@/components/ui/separator';
-import { materials } from '@/data/materials.json';
-import useParameterStore from '@/store';
+import { materials } from '@/data/materials';
+import useParameterStore from '@/store/parameters';
 
-const Home = () => {
+const ThicknessSelector = ({
+  thicknesses,
+  selectedThickness,
+  onSelect
+}: {
+  thicknesses: number[],
+  selectedThickness: string,
+  onSelect: (thickness: string) => void
+}) => (
+  <div className="flex flex-col gap-2">
+    {thicknesses.map((t) => (
+      <Button
+        key={t}
+        variant={selectedThickness === t.toString() ? "default" : "outline"}
+        onClick={() => onSelect(t.toString())}
+      >
+        {t}mm
+      </Button>
+    ))}
+  </div>
+);
+
+const ModeSelector = ({
+  modes,
+  selectedMode,
+  onSelect
+}: {
+  modes: object,
+  selectedMode: string,
+  onSelect: (mode: string) => void
+}) => (
+  <div className="flex flex-col gap-2">
+    {Object.keys(modes).map((m) => (
+      <Button
+        key={m}
+        variant={selectedMode === m ? "default" : "outline"}
+        onClick={() => onSelect(m)}
+      >
+        {m}
+      </Button>
+    ))}
+  </div>
+);
+
+const ParameterCard = ({
+  title,
+  children
+}: {
+  title: string,
+  children: React.ReactNode
+}) => (
+  <Card>
+    <CardHeader>
+      <CardTitle>{title}</CardTitle>
+    </CardHeader>
+    <CardContent>
+      {children}
+    </CardContent>
+  </Card>
+);
+
+const Page = () => {
   const {
     material,
     thickness,
@@ -20,97 +81,65 @@ const Home = () => {
     setThickness,
     setMode,
     setResolution
-  } = useParameterStore():ParameterS;
+  } = useParameterStore();
 
   const selectedMaterial = material ? materials[material] : null;
 
   const getParameters = () => {
     if (!selectedMaterial || !thickness || !mode || !resolution) return null;
-    return selectedMaterial.modes[mode][thickness].resolutions[resolution];
+    return selectedMaterial.modes[mode]?.[thickness]?.resolutions[resolution];
   };
+
+  const parameters = getParameters();
 
   return (
     <main className="container mx-auto py-6 space-y-6">
       <h1 className="text-3xl font-bold">LaserPecker Parameters</h1>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Material</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <MaterialSelector
-              selectedMaterial={material}
-              onSelect={setMaterial}
+        <ParameterCard title="Material">
+          <MaterialSelector
+            selectedMaterial={material}
+            onSelect={setMaterial}
+          />
+        </ParameterCard>
+
+        {selectedMaterial && (
+          <ParameterCard title="Thickness">
+            <ThicknessSelector
+              thicknesses={selectedMaterial.thicknesses}
+              selectedThickness={thickness}
+              onSelect={setThickness}
             />
-          </CardContent>
-        </Card>
-
-        {material && (
-          <Card>
-            <CardHeader>
-              <CardTitle>Thickness</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col gap-2">
-                {selectedMaterial.thicknesses.map((t) => (
-                  <button
-                    key={t}
-                    className={`p-2 rounded ${thickness === t.toString() ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
-                      }`}
-                    onClick={() => setThickness(t.toString())}
-                  >
-                    {t}mm
-                  </button>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          </ParameterCard>
         )}
 
-        {thickness && (
-          <Card>
-            <CardHeader>
-              <CardTitle>Mode</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col gap-2">
-                {Object.keys(selectedMaterial.modes).map((m) => (
-                  <button
-                    key={m}
-                    className={`p-2 rounded ${mode === m ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
-                      }`}
-                    onClick={() => setMode(m)}
-                  >
-                    {m}
-                  </button>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+        {thickness && selectedMaterial?.modes && (
+          <ParameterCard title="Mode">
+            <ModeSelector
+              modes={selectedMaterial.modes}
+              selectedMode={mode}
+              onSelect={setMode}
+            />
+          </ParameterCard>
         )}
 
-        {mode && (
-          <Card>
-            <CardHeader>
-              <CardTitle>Resolution</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResolutionPicker
-                resolutions={Object.keys(selectedMaterial.modes[mode][thickness].resolutions)}
-                selectedResolution={resolution}
-                onSelect={setResolution}
-              />
-            </CardContent>
-          </Card>
+        {mode && selectedMaterial?.modes[mode]?.[thickness]?.resolutions && (
+          <ParameterCard title="Resolution">
+            <ResolutionPicker
+              resolutions={Object.keys(selectedMaterial.modes[mode][thickness].resolutions)}
+              selectedResolution={resolution}
+              onSelect={setResolution}
+            />
+          </ParameterCard>
         )}
       </div>
 
-      {getParameters() && (
+      {parameters && (
         <>
           <Separator />
           <section>
             <h2 className="text-2xl font-bold mb-4">Recommended Parameters</h2>
-            <ParameterDisplay parameters={getParameters()} />
+            <ParameterDisplay parameters={parameters} />
           </section>
         </>
       )}
@@ -118,4 +147,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Page;
