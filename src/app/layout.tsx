@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
@@ -61,6 +62,7 @@ export default function RootLayout({
             <p>Find the source code on <a href="https://github.com/yourusername/laserpecker-params" className="text-blue-600 hover:underline">GitHub</a></p>
           </div>
         </footer>
+        <Analytics />
       </body>
     </html>
   );
